@@ -30,7 +30,6 @@ def generalModel(rates,conc0,tvec=np.linspace(0, 200000, 100)):
     for ii in np.arange(0,numEl):
         for ij in np.arange(0,numEl):
             if ii < ij:
-                vtxt = vtxt + ','+chr(ii+65)+chr(ij+65)
                 var = Variable(chr(ii+65)+chr(ij+65))
                 vv = vv + (var,)
                 par = Parameter('k'+chr(ii+65)+chr(ij+65),rates[ii,ij])
