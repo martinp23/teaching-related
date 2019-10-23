@@ -8,7 +8,7 @@ from symfit import parameters, Parameter, Variable, variables, Fit, ODEModel, D
 # of the use of symfit
 
 # MODEL ONE this model comprises A+B--->AB (ie a simple chemical reaction)
-def oneProductModel(kABval=1e-2,conc0=50e-2,tvec=np.linspace(0, 200000, 100)):
+def oneProductModel(kABval=1e-2,conc0=50e-3,tvec=np.linspace(0, 200000, 100)):
     # Here we describe a model with A+B->AB
     A, B, AB, t = variables('A, B, AB, t')
     tdata = [0,1,2]
@@ -31,7 +31,6 @@ def oneProductModel(kABval=1e-2,conc0=50e-2,tvec=np.linspace(0, 200000, 100)):
 
 
     # Generate some data
-    tvec = np.linspace(0, 100, 100)
     ans = ode_model(t=tvec, **fit_result.params)._asdict()
     
     # and plot it
@@ -40,6 +39,8 @@ def oneProductModel(kABval=1e-2,conc0=50e-2,tvec=np.linspace(0, 200000, 100)):
 
     #plt.plot(tvec, BCres, label='[BC]')
     #plt.scatter(tdata, adata)
+    plt.ylabel('Conc [M]')
+    plt.xlabel('Time [s]')
     plt.legend()
     plt.show()
 
@@ -70,13 +71,14 @@ def twoProductModel(kABval=1e-2,kBCval=1e-2,conc0=50e-3,tvec=np.linspace(0, 2000
     fit_result = fit.execute()
     
     # Generate some data
-    tvec = np.linspace(0, 100, 100)
     ans = ode_model(t=tvec, **fit_result.params)._asdict()
     
     # and plot it
     plt.plot(tvec, ans[AB], label='[AB]')
     plt.plot(tvec, ans[BC], label='[BC]')
     #plt.scatter(tdata, adata)
+    plt.ylabel('Conc [M]')
+    plt.xlabel('Time [s]')
     plt.legend()
     plt.show()
     
@@ -100,12 +102,12 @@ def twoProductModel(kABval=1e-2,kBCval=1e-2,conc0=50e-3,tvec=np.linspace(0, 2000
     else:
         print("No enhancement compared to equal rates")
     
-    return ans
+    
 
 
 
 # MODEL 3: this is a box where each vertex is connected to two others.
-def box(kABval=1e-2,kACval=1e-2,kBDval=1e-2,kCDval=1e-2,kBCval=1e-2,kADval=1e-2,conc0=50e-3,tvec=np.linspace(0, 200000, 100)):
+def box(kABval=1e-2,kACval=1e-2,kBDval=1e-2,kCDval=1e-2,conc0=50e-3,tvec=np.linspace(0, 200000, 100)):
     # Here we describe a model with A+B->AB
     A, B, C, Di, AB, AC, CD, BD,  t = variables('A, B, C, Di, AB, AC, CD, BD,  t')
     tdata = [0,1,2,100,1000,10000]
@@ -148,7 +150,8 @@ def box(kABval=1e-2,kACval=1e-2,kBDval=1e-2,kCDval=1e-2,kBCval=1e-2,kADval=1e-2,
     plt.plot(tvec, ans[CD], label='[CD]')
     plt.plot(tvec, ans[BD], label='[BD]')
 
-
+    plt.xlabel('Time [s]')
+    plt.ylabel('Conc [M]')
     #plt.plot(tvec, BCres, label='[BC]')
     #plt.scatter(tdata, adata)
     plt.legend()
@@ -228,6 +231,8 @@ def square(kABval=1e-2,kACval=1e-2,kBDval=1e-2,kCDval=1e-2,kBCval=1e-2,kADval=1e
 
     #plt.plot(tvec, BCres, label='[BC]')
     #plt.scatter(tdata, adata)
+    plt.ylabel('Conc [M]')
+    plt.xlabel('Time [s]')
     plt.legend()
     plt.show()
 

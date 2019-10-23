@@ -90,6 +90,8 @@ def generalModel(rates,conc0,tvec=np.linspace(0, 200000, 100)):
         plt.plot(tvec, ans[vv[ii]], label=vv[ii].name)
         result.append(ans[vv[ii]][-1])
         legtxt = legtxt + (vv[ii].name,)
+    plt.ylabel('Conc [M]')
+    plt.xlabel('Time [s]')
     plt.legend()
     plt.show()
 
