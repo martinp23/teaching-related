@@ -1,4 +1,3 @@
 numpy
 matplotlib
-symfit==0.5.1
-
+symfit
