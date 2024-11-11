@@ -60,18 +60,20 @@ def twoProductModel(kABval=1e-2,kBCval=1e-2,conc0=50e-3,tvec=np.linspace(0, 2000
         D(A,t): -kAB*A*B,
         D(B,t): -(kAB*A*B + kBC*B*C),
         D(C,t): -kBC*B*C,
+
     }
     
     # here we define the ODE model and specify the start concentrations of each reagent
 
-    ode_model = ODEModel(model_dict, initial={t: 0.0, A:conc0, B:conc0, C:conc0, AB:0, BC:0})
+    ode_model = ODEModel(model_dict, initial={t: tdata[0], A:conc0, B:conc0, C:conc0, AB:0, BC:0})
 
     # and then we fit the ODE model
-    fit = Fit(ode_model, t=tdata, A=None, B=None, AB=None, BC=None, C=None)
-    fit_result = fit.execute()
+    # fit = Fit(ode_model, t=tdata, A=None, B=None, AB=None, BC=None, C=None)
+    # fit_result = fit.execute()
     
     # Generate some data
-    ans = ode_model(t=tvec, **fit_result.params)._asdict()
+    ans = ode_model(t=tvec,kAB=kABval, kBC=kBCval)._asdict()
+
     
     # and plot it
     plt.plot(tvec, ans[AB], label='[AB]')
@@ -136,12 +138,12 @@ def box(kABval=1e-2,kACval=1e-2,kBDval=1e-2,kCDval=1e-2,conc0=50e-3,tvec=np.lins
     ode_model = ODEModel(model_dict, initial={t: 0.0, A:conc0, B:conc0, C:conc0, Di:conc0, AB:0,  AC:0, BD:0, CD:0,  })
 
     # and then we fit the ODE model
-    fit = Fit(ode_model, t=tdata, A=None, B=None, C=None, Di=None, AB=None,  AC=None, BD=None, CD=None, )
-    fit_result = fit.execute()
+    # fit = Fit(ode_model, t=tdata, A=None, B=None, C=None, Di=None, AB=None,  AC=None, BD=None, CD=None, )
+    # fit_result = fit.execute()
 
 
     # Generate some data
-    ans = ode_model(t=tvec, **fit_result.params)._asdict()
+    ans = ode_model(t=tvec, kAB=kABval, kAC=kACval, kBD=kBDval, kCD=kCDval)._asdict()
 
     
     # and plot it
@@ -213,12 +215,12 @@ def square(kABval=1e-2,kACval=1e-2,kBDval=1e-2,kCDval=1e-2,kBCval=1e-2,kADval=1e
     ode_model = ODEModel(model_dict, initial={t: 0.0, A:conc0, B:conc0, C:conc0, Di:conc0, AB:0, BC:0, AC:0, BD:0, CD:0, AD:0 })
 
     # and then we fit the ODE model
-    fit = Fit(ode_model, t=tdata, A=None, B=None, C=None, Di=None, AB=None, BC=None, AC=None, BD=None, CD=None, AD=None)
-    fit_result = fit.execute()
+    # fit = Fit(ode_model, t=tdata, A=None, B=None, C=None, Di=None, AB=None, BC=None, AC=None, BD=None, CD=None, AD=None)
+    # fit_result = fit.execute()
 
 
     # Generate some data
-    ans = ode_model(t=tvec, **fit_result.params)._asdict()
+    ans = ode_model(t=tvec, kAB=kABval, kAC=kACval, kBD=kBDval, kCD=kCDval, kBC=kBCval, kAD=kADval)._asdict()
 
     
     # and plot it

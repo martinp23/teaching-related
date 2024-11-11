@@ -6,7 +6,8 @@ from symfit import parameters, Parameter, Variable, variables, Fit, ODEModel, D
 # GENERAL MODEL this general model takes a 2D weighted adjacency matrix, where the weights are rate constants.
 
 def generalModel(rates,conc0,tvec=np.linspace(0, 200000, 100)):
-
+    print("This function does not work. Sorry!")
+    return()
 
     # make a list of parameters
     numEl = np.shape(rates)[0]
@@ -71,17 +72,21 @@ def generalModel(rates,conc0,tvec=np.linspace(0, 200000, 100)):
 
     # define the model
     ode_model = ODEModel(model_dict, initial=initial)
-    # honestly I don't know what this does but it seems to have no effect on results (based on my incomplete testing!)
-    # it just needs to be there and not 'None'
-    tdata = [0,1,2]
 
     # and then we fit the ODE model
-    fit = Fit(ode_model,**fitargs,t=tdata)
-    fit_result = fit.execute()
+    # fit = Fit(ode_model,**fitargs,t=tdata)
+    # fit_result = fit.execute()
 
+    parargs = {}
+    for p in pp:
+        parargs[p]= p.value
+
+    print(parargs)
+    print(ode_model)
 
     # Generate some data from our fit model
-    ans = ode_model(t=tvec, **fit_result.params)._asdict()
+    ans = ode_model(t=tvec,*parargs)._asdict()
+
 
     # and plot it
     result = []
